@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http:localhost:3090';
+const API_URL = 'http://localhost:3090';
 
 export function signinUser(email, password) {
 	return function(dispatch) {
@@ -18,3 +18,4 @@ export function signinUser(email, password) {
 	// if request is bad
 	// show error
 }
+
