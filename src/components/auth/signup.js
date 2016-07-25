@@ -62,12 +62,11 @@ function validate(formProps) {
 	if (formProps.password !== formProps.passwordConfirm) {
 		errors.password = 'Password must match';
 	}
-	
+
 	return errors;
 }
 
 function mapStateToProps(state) {
-	console.log('state.auth.error', state )
 	return { errorMessage: state.auth.error };
 }
 
