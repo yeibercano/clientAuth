@@ -9,20 +9,25 @@ export function signinUser(email, password) {
 		// submit email, pass to server
 		axios.post(`${API_URL}/signin`, { email, password })
 			.then(response => {
-					// if (respose.status === 200)
-					//if request is good
-					// update state
 					dispatch({ type: AUTH_USER });
-					// save JWT
 					localStorage.setItem('token', response.data.token)
-					// redirect to route...to
 					browserHistory.push('/feature');
 			})
 			.catch(() => {
-				// if request is bad
-				// show error
 				dispatch(authError('Bad login info'));
 			});
+	}
+}
+
+export function signupUser({ email, password }) {
+	return function(dispatch) { 
+		axios.post(`${API_URL}/signup`, { email, password })
+			.then(response => { 
+				dispatch({ type: AUTH_USER });
+				localStorage.setItem('token', response.data.token);
+				browserHistory.push('/feature');
+			})
+			.catch(response => dispatch(authError('Email in use')));
 	}
 }
 
@@ -35,6 +40,6 @@ export function authError (error) {
 
 export function signoutUser() {
 		localStorage.removeItem('token');
-		
+
 	  return { type: UNAUTH_USER } ;
 }
