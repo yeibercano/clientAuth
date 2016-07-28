@@ -21,7 +21,6 @@ class Header extends Component {
 	}
  
 	render() {
-		console.log('this/props', this.props)
 		return (
 			<nav className="navbar navbar-light">
 				<Link to='/' className="navbar-brand">Home</Link>
