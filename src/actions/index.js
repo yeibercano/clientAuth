@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_MESSAGE } from './types';
 
 const API_URL = 'http://localhost:3090';
 
@@ -31,7 +31,7 @@ export function signupUser({ email, password }) {
 	}
 }
 
-export function authError (error) {
+export function authError(error) {
 	return {
 		type: AUTH_ERROR,
 		payload: error
@@ -42,4 +42,18 @@ export function signoutUser() {
 		localStorage.removeItem('token');
 
 	  return { type: UNAUTH_USER } ;
+}
+
+export function fetchMessage() {
+	return function(dispatch) {
+		axios.get(API_URL, { 
+			headers: { authorization: localStorage.getItem('token')}
+		})
+			.then(response => { 
+				dispatch({
+					type: FETCH_MESSAGE,
+					payload: response.data.message
+				});
+			});
+	}
 }
